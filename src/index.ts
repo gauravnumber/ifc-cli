@@ -4,6 +4,8 @@ class Ifc {
   private numOfDaysThisYear: number;
   private month: number;
   private remainingDays: number;
+  private todayYear: number;
+  private fixedDays: number;
 
   constructor() {
     const today = new Date();
@@ -12,18 +14,30 @@ class Ifc {
     const diffResetYearAndNow = today.getTime() - resetYear.getTime();
 
     this.numOfDaysThisYear = diffResetYearAndNow / (1000 * 3600 * 24);
-    this.numOfDaysThisYear = Math.round(this.numOfDaysThisYear);
+    // this.numOfDaysThisYear = Math.round(this.numOfDaysThisYear);
+    this.numOfDaysThisYear = 169;
 
-    // this.numOfDaysThisYear = 36656;
     this.month = 0;
     this.remainingDays = 0;
+    this.fixedDays = 365;
+    // this.todayYear = new Date().getFullYear();
+    this.todayYear = 2020;
     this.calculate(this.numOfDaysThisYear);
   }
 
   calculate(numOfDaysThisYear: number) {
-    if (numOfDaysThisYear > 365) {
-      this.month += Math.floor(this.numOfDaysThisYear / 365);
-      this.calculate(numOfDaysThisYear - 365);
+    if (this.isLeapYear()) {
+      // console.log("leap");
+      this.fixedDays = 366;
+      numOfDaysThisYear =
+        numOfDaysThisYear > 169 ? numOfDaysThisYear - 1 : numOfDaysThisYear;
+    }
+
+    if (numOfDaysThisYear > this.fixedDays) {
+      // console.log(this.fixedDays);
+
+      this.month += Math.floor(this.numOfDaysThisYear / this.fixedDays);
+      this.calculate(numOfDaysThisYear - this.fixedDays);
     } else {
       let month = numOfDaysThisYear / 28;
       this.month = Math.ceil(month);
@@ -32,14 +46,37 @@ class Ifc {
     }
   }
 
+  isLeapYear(): boolean {
+    if (this.todayYear % 4 === 0) {
+      // if (this.todayYear % 100 === 0) {
+      //   if (this.todayYear % 400 === 0) {
+      //     return true;
+      //   } else {
+      //     return false;
+      //   }
+      // } else {
+      //   return true;
+      // }
+
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   now() {
-    if (this.numOfDaysThisYear % 365 === 0) {
-      return "Last Day of the Year";
+    if (this.numOfDaysThisYear % this.fixedDays === 0) {
+      return "Year Day";
     }
 
-    return `${this.remainingDays} - ${
-      this.month
-    } - ${new Date().getFullYear()}`;
+    if (this.isLeapYear()) {
+      // console.log("leap year");
+      if (this.numOfDaysThisYear === 169) {
+        return "Leap Day";
+      }
+    }
+
+    return `${this.remainingDays} - ${this.month} - ${this.todayYear}`;
   }
 }
 
