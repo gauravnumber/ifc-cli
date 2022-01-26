@@ -14,28 +14,26 @@ class Ifc {
     const diffResetYearAndNow = today.getTime() - resetYear.getTime();
 
     this.numOfDaysThisYear = diffResetYearAndNow / (1000 * 3600 * 24);
-    // this.numOfDaysThisYear = Math.round(this.numOfDaysThisYear);
-    this.numOfDaysThisYear = 169;
+    this.numOfDaysThisYear = Math.round(this.numOfDaysThisYear);
+    // this.numOfDaysThisYear = 169;
 
     this.month = 0;
     this.remainingDays = 0;
     this.fixedDays = 365;
-    // this.todayYear = new Date().getFullYear();
-    this.todayYear = 2020;
+    this.todayYear = new Date().getFullYear();
+    // this.todayYear = 2020;
     this.calculate(this.numOfDaysThisYear);
   }
 
   calculate(numOfDaysThisYear: number) {
     if (this.isLeapYear()) {
-      // console.log("leap");
       this.fixedDays = 366;
+
       numOfDaysThisYear =
         numOfDaysThisYear > 169 ? numOfDaysThisYear - 1 : numOfDaysThisYear;
     }
 
     if (numOfDaysThisYear > this.fixedDays) {
-      // console.log(this.fixedDays);
-
       this.month += Math.floor(this.numOfDaysThisYear / this.fixedDays);
       this.calculate(numOfDaysThisYear - this.fixedDays);
     } else {
@@ -70,7 +68,6 @@ class Ifc {
     }
 
     if (this.isLeapYear()) {
-      // console.log("leap year");
       if (this.numOfDaysThisYear === 169) {
         return "Leap Day";
       }
