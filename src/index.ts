@@ -10,11 +10,22 @@ class Ifc {
   constructor() {
     const today = new Date();
     const todayYear = today.getFullYear();
-    const resetYear = new Date(todayYear, 0);
+    const resetYear = new Date(todayYear, 0, 0);
+
+    // console.log(`resetYear`, resetYear);
+    // console.log(`today`, today);
+
     const diffResetYearAndNow = today.getTime() - resetYear.getTime();
+    // +(resetYear.getTimezoneOffset() - today.getTimezoneOffset()) * 60 * 1000;
+
+    // console.log(`resetYear.getTimezoneOffset()`, resetYear.getTimezoneOffset());
+
+    // console.log(`today.getTimezoneOffset()`, today.getTimezoneOffset());
 
     this.numOfDaysThisYear = diffResetYearAndNow / (1000 * 3600 * 24);
-    this.numOfDaysThisYear = Math.round(this.numOfDaysThisYear);
+    // console.log(`this.numOfDaysThisYear`, this.numOfDaysThisYear);
+
+    this.numOfDaysThisYear = Math.floor(this.numOfDaysThisYear);
     // this.numOfDaysThisYear = 169;
 
     this.month = 0;
