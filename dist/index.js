@@ -1,24 +1,18 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 class Ifc {
-    constructor() {
-        const today = new Date();
-        const todayYear = today.getFullYear();
-        const resetYear = new Date(todayYear, 0, 0);
-        // console.log(`resetYear`, resetYear);
-        // console.log(`today`, today);
+    constructor(today) {
+        // const today = new Date();
+        this.todayYear = today.getFullYear();
+        const resetYear = new Date(this.todayYear, 0, 0);
         const diffResetYearAndNow = today.getTime() - resetYear.getTime();
-        // +(resetYear.getTimezoneOffset() - today.getTimezoneOffset()) * 60 * 1000;
-        // console.log(`resetYear.getTimezoneOffset()`, resetYear.getTimezoneOffset());
-        // console.log(`today.getTimezoneOffset()`, today.getTimezoneOffset());
         this.numOfDaysThisYear = diffResetYearAndNow / (1000 * 3600 * 24);
-        // console.log(`this.numOfDaysThisYear`, this.numOfDaysThisYear);
         this.numOfDaysThisYear = Math.floor(this.numOfDaysThisYear);
         // this.numOfDaysThisYear = 169;
         this.month = 0;
         this.remainingDays = 0;
         this.fixedDays = 365;
-        this.todayYear = new Date().getFullYear();
+        // this.todayYear = new Date().getFullYear();
         // this.todayYear = 2020;
         this.calculate(this.numOfDaysThisYear);
     }
@@ -41,16 +35,17 @@ class Ifc {
     }
     isLeapYear() {
         if (this.todayYear % 4 === 0) {
-            // if (this.todayYear % 100 === 0) {
-            //   if (this.todayYear % 400 === 0) {
-            //     return true;
-            //   } else {
-            //     return false;
-            //   }
-            // } else {
-            //   return true;
-            // }
-            return true;
+            if (this.todayYear % 100 === 0) {
+                if (this.todayYear % 400 === 0) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+            else {
+                return true;
+            }
         }
         else {
             return false;
@@ -61,6 +56,7 @@ class Ifc {
             return "Year Day";
         }
         if (this.isLeapYear()) {
+            console.log("leap year ");
             if (this.numOfDaysThisYear === 169) {
                 return "Leap Day";
             }
