@@ -1,6 +1,4 @@
-#! /usr/bin/env node
-
-class Ifc {
+export default class Ifc {
   private numOfDaysThisYear: number;
   private month: number;
   private remainingDays: number;
@@ -87,7 +85,3 @@ class Ifc {
     return `${this.remainingDays} - ${this.month} - ${this.todayYear}`;
   }
 }
-
-const ifc = new Ifc();
-
-console.log(ifc.now());

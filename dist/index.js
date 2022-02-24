@@ -1,5 +1,5 @@
-#! /usr/bin/env node
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 class Ifc {
     constructor() {
         const today = new Date();
@@ -68,6 +68,5 @@ class Ifc {
         return `${this.remainingDays} - ${this.month} - ${this.todayYear}`;
     }
 }
-const ifc = new Ifc();
-console.log(ifc.now());
+exports.default = Ifc;
 //# sourceMappingURL=index.js.map
