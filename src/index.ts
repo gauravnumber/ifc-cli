@@ -45,19 +45,10 @@ export default class Ifc {
   }
 
   isLeapYear(): boolean {
-    if (this.todayYear % 4 === 0) {
-      if (this.todayYear % 100 === 0) {
-        if (this.todayYear % 400 === 0) {
-          return true;
-        } else {
-          return false;
-        }
-      } else {
-        return true;
-      }
-    } else {
-      return false;
-    }
+    return (
+      (this.todayYear % 4 === 0 && this.todayYear % 100 !== 0) ||
+      this.todayYear % 400 === 0
+    );
   }
 
   now() {
@@ -66,8 +57,6 @@ export default class Ifc {
     }
 
     if (this.isLeapYear()) {
-      console.log("leap year ");
-
       if (this.numOfDaysThisYear === 169) {
         return "Leap Day";
       }
